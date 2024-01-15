@@ -42,7 +42,9 @@ const ClientPage = ({ params }: { params: { uuid: string } }) => {
 
   useEffect(() => {
     if (htmlResponse) {
-      window.print();
+      setTimeout(() => {
+        window.print();
+      }, 1000);
     }
   }, [htmlResponse]);
 
