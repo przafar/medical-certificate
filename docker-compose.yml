@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  nextjs-app:
+    container_name: nextjs-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8088"
+    volumes:
+      - ${PWD}/app:/usr/src/app
+    environment:
+      - NODE_ENV=production
