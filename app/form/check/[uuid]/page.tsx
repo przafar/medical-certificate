@@ -13,7 +13,7 @@ const ClientPage = ({ params }: { params: { uuid: string } }) => {
     initialValues: {
       code: "",
     },
-    onSubmit: async (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm, setFieldError, setErrors }) => {
       try {
         const response = await axios.post(
           `${process.env.apiURL}/forms/check/${params?.uuid}`,
@@ -29,6 +29,7 @@ const ClientPage = ({ params }: { params: { uuid: string } }) => {
           resetForm();
         }
       } catch ({ response }: any) {
+        setErrors({ code: "Неправильный код" });
         toast.error(response?.data?.message);
       }
     },
@@ -57,30 +58,39 @@ const ClientPage = ({ params }: { params: { uuid: string } }) => {
         </>
       ) : (
         <div className="flex items-center justify-center h-screen flex-col">
+          <div className="flex items-center mb-16">
+            <img src="/logo.png" alt="logo" className="mr-4" />
+            <p>
+              Министерство здравоохранения
+              <br />
+              Республики Узбекистан
+            </p>
+          </div>
+
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
             <form
               className="flex justify-center flex-col"
               onSubmit={formik.handleSubmit}
             >
-              <label className="block text-gray-700 text-sm font-bold mb-2">
-                Код подтверждения
+              <label className="block text-gray-700 text-md font-medium mb-4 relative">
+                <span className="mb-2 flex">Код подтверждения</span>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-2xl text-center"
+                  type="number"
+                  placeholder="Введите код"
+                  id="code"
+                  maxLength={4}
+                  name="code"
+                  onChange={formik.handleChange}
+                  value={formik.values.code}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.code && formik.errors.code ? (
+                  <div className="text-red-500 text-sm absolute -bottom-6 font-normal">
+                    {formik.errors.code}
+                  </div>
+                ) : null}
               </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="number"
-                placeholder="Введите код"
-                id="code"
-                maxLength={4}
-                name="code"
-                onChange={formik.handleChange}
-                value={formik.values.code}
-                onBlur={formik.handleBlur}
-              />
-
-              {formik.touched.code && formik.errors.code ? (
-                <div className="text-red-500 text-sm">{formik.errors.code}</div>
-              ) : null}
-
               <button
                 disabled={loading}
                 type="submit"
