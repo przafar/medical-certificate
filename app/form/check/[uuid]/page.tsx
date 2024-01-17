@@ -29,6 +29,7 @@ const ClientPage = ({ params }: { params: { uuid: string } }) => {
           resetForm();
         }
       } catch ({ response }: any) {
+        console.log(response);
         setErrors({ code: "Неправильный код" });
         toast.error(response?.data?.message);
       }
