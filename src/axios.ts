@@ -1,40 +1,36 @@
-// axios-instance.js
 import axios from "axios";
 
-// Create a new instance of Axios with custom configurations
-const axiosInstance = axios.create({
-  baseURL: process.env.apiURL, // Set your API base URL
-  headers: {
-    "Content-Type": "application/json",
-    "X-Requested-With": "XMLHttpRequest",
-    // mode: "no-cors",
-    Accept: "*",
-  },
+const instance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_SICKLEAVE_API_URL,
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        // "X-Requested-With": "XMLHttpRequest",
+    },
 });
 
-// You can also add interceptors for request and response handling
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // You can modify the request config before it is sent
-    // For example, you might want to add an authentication token
-    // config.headers.Authorization = `Bearer ${yourAuthToken}`;
-    return config;
-  },
-  (error) => {
-    // Handle request errors
-    return Promise.reject(error);
-  },
+instance.interceptors.request.use(
+    (config) => {
+        return config;
+    },
+    (error) => {
+        // Handle request errors
+        return Promise.reject(error);
+    }
 );
 
-axiosInstance.interceptors.response.use(
-  (response) => {
-    // You can modify the response data before it is passed to the calling code
-    return response;
-  },
-  (error) => {
-    // Handle response errors
-    return Promise.reject(error);
-  },
+instance.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
 );
 
-export default axiosInstance;
+// Function to set a new base URL
+const setBaseUrl = (newBaseUrl: string) => {
+    instance.defaults.baseURL = newBaseUrl;
+};
+
+export { instance, setBaseUrl };
