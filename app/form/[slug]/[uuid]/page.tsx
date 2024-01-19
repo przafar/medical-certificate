@@ -9,12 +9,6 @@ const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
     const [loading, setLoading] = useState(false);
     const [htmlResponse, setHtmlResponse] = useState("");
 
-    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/check/{id} -> 083
-    // https://test-api.ssv.uz/v2/SickLeave/forms/check/{id} -> Больничный лист
-
-    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/083/{id}
-    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/SickLeave/{id}
-
     useEffect(() => {
         const { slug } = params;
 
