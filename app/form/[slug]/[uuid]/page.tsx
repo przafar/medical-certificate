@@ -6,6 +6,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const ClientPage = ({ params }: { params: { uuid: string } }) => {
+  console.log(params);
   const [loading, setLoading] = useState(false);
   const [htmlResponse, setHtmlResponse] = useState("");
 
