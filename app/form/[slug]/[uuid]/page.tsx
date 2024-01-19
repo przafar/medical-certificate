@@ -9,12 +9,18 @@ const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
     const [loading, setLoading] = useState(false);
     const [htmlResponse, setHtmlResponse] = useState("");
 
+    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/check/{id} -> 083
+    // https://test-api.ssv.uz/v2/SickLeave/forms/check/{id} -> Больничный лист
+
+    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/083/{id}
+    // https://test-api.ssv.uz/v2/MedicalCertificate/forms/SickLeave/{id}
+
     useEffect(() => {
         const { slug } = params;
 
         if (slug === "form083") {
-            setBaseUrl(process.env.NEXT_PUBLIC_FORM083_URL as string);
-        } else {
+            setBaseUrl(process.env.NEXT_PUBLIC_FORM083_API_URL as string);
+        } else if (slug === "sick-leave") {
             setBaseUrl(process.env.NEXT_PUBLIC_SICKLEAVE_API_URL as string);
         }
     }, [params]);
