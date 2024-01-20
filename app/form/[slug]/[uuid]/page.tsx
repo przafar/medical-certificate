@@ -8,6 +8,8 @@ import { instance, setBaseUrl } from "@/src/axios";
 const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
     const [loading, setLoading] = useState(false);
     const [htmlResponse, setHtmlResponse] = useState("");
+    console.log(process.env.NEXT_PUBLIC_FORM083_API_URL);
+    console.log(process.env.NEXT_PUBLIC_SICKLEAVE_API_URL);
 
     useEffect(() => {
         const { slug } = params;
@@ -38,7 +40,12 @@ const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
                 }
             } catch ({ response }: any) {
                 console.log(response);
-                setErrors({ code: "Неверный код" });
+                if (response.status === 404) {
+                    setErrors({ code: "Такой формы, не существует" });
+                } else {
+                    setErrors({ code: "Неверный код" });
+                }
+
                 toast.error(response?.data?.message);
             }
         },
