@@ -38,12 +38,7 @@ const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
                 }
             } catch ({ response }: any) {
                 console.log(response);
-                if (response.status === 404) {
-                    setErrors({ code: "Такой формы, не существует" });
-                } else {
-                    setErrors({ code: "Неверный код" });
-                }
-
+                setErrors({ code: "Неверный код" });
                 toast.error(response?.data?.message);
             }
         },
