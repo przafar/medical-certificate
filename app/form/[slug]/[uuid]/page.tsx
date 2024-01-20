@@ -8,16 +8,14 @@ import { instance, setBaseUrl } from "@/src/axios";
 const ClientPage = ({ params }: { params: { uuid: string; slug: string } }) => {
     const [loading, setLoading] = useState(false);
     const [htmlResponse, setHtmlResponse] = useState("");
-    console.log(process.env.NEXT_PUBLIC_FORM083_API_URL);
-    console.log(process.env.NEXT_PUBLIC_SICKLEAVE_API_URL);
 
     useEffect(() => {
         const { slug } = params;
 
         if (slug === "form083") {
-            setBaseUrl(process.env.FORM083_API_URL as string);
+            setBaseUrl(process.env.NEXT_PUBLIC_FORM083_API_URL as string);
         } else if (slug === "sick-leave") {
-            setBaseUrl(process.env.SICKLEAVE_API_URL as string);
+            setBaseUrl(process.env.NEXT_PUBLIC_SICKLEAVE_API_URL as string);
         }
     }, [params]);
 
