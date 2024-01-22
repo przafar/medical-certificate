@@ -1,14 +1,11 @@
-version: '3.8'
+version: "3"
 
 services:
-  nextjs-app:
-    container_name: nextjs-container
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "9090:9090"
-    volumes:
-      - ${PWD}/app:/usr/src/app
-    environment:
-      - NODE_ENV=production
+    mc-prod:
+        build:
+            context: .
+            target: runner
+        environment:
+            NODE_ENV: production
+        ports:
+            - "8080:8080"

@@ -16,11 +16,13 @@
     }
 }
 
+* {
+    color: #000;
+}
 body {
     color: rgb(var(--foreground-rgb));
     /*padding: 1rem;*/
 }
-
 
 .pdf {
     max-width: max-content;

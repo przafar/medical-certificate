@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  med-cert-app-dev:
+    container_name: MC-development
+    build:
+      context: .
+      dockerfile: docker/development/Dockerfile
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${PWD}/app:/usr/src/app
+    environment:
+      - NODE_ENV=production
